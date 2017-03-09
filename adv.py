@@ -41,28 +41,45 @@ def move(direction):
 		if compass[0]:
 			current_scene = map.get_scene(compass[0])
 			print(f"You are standing in a {current_scene.get_description_and_items()}")
+			get_exits(current_scene.get_compass())
 		else:
 			print("You can't go there.")
 	elif direction == "e" or direction == "east":
 		if compass[1]:
 			current_scene = map.get_scene(compass[1])
 			print(f"You are standing in a {current_scene.get_description_and_items()}")
+			get_exits(current_scene.get_compass())
 		else:
 			print("You can't go there.")
 	elif direction == "s" or direction == "south":
 		if compass[2]:
 			current_scene = map.get_scene(compass[2])
 			print(f"You are standing in a {current_scene.get_description_and_items()}")
+			get_exits(current_scene.get_compass())
 		else:
 			print("You can't go there.")
 	elif direction == "w" or direction == "west":
 		if compass[3]:
 			current_scene = map.get_scene(compass[3])
 			print(f"You are standing in a {current_scene.get_description_and_items()}")
+			get_exits(current_scene.get_compass())
 		else:
 			print("You can't go there.")
 	else:
 		print("That's not a direction")
+
+
+def get_exits(compass):
+	if not compass.count(None) == len(compass):
+		out = "There are exits to the "
+		if compass[0]: out += "north, "
+		if compass[1]: out += "east, "
+		if compass[2]: out += "south, "
+		if compass[3]: out += "west, "
+		out += "and nowhere else."
+		print(out)
+	else:
+		print("There are no exits")
 
 #init stuff
 start_scene = "example"
@@ -71,6 +88,7 @@ current_scene = map.get_scene(start_scene)
 
 player = Player(start_scene)
 print(f"You are standing in a {current_scene.get_description()}")
+print(get_exits(current_scene.get_compass()))
 
 while True:
 	command = input("> ")
@@ -78,6 +96,7 @@ while True:
 		print("hey")
 	elif command == "look" or command == "l":
 		print(f"You are standing in a {current_scene.get_description_and_items()}")
+		get_exits(current_scene.get_compass())
 	elif command == "i" or command == "inv" or command == "inventory":
 		print(player.get_inventory_names_and_descs())
 	elif command == "drop":
@@ -134,4 +153,3 @@ while True:
 			print(current_scene.get_unlocked_status())
 	else:
 		print("invalid command\ntry again, but better")
-
